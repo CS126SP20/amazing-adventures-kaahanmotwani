@@ -14,11 +14,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class Layout {
 
-    @JsonProperty("startingRoom")
     private String startingRoom;
-    @JsonProperty("endingRoom")
     private String endingRoom;
-    @JsonProperty("rooms")
     private List<Room> rooms = null;
 
     /**
@@ -41,12 +38,18 @@ public class Layout {
         this.rooms = rooms;
     }
 
-    @JsonProperty("startingRoom")
+    /**
+     *
+     * @return
+     */
     public String getStartingRoom() {
         return startingRoom;
     }
 
-    @JsonProperty("startingRoom")
+    /**
+     *
+     * @param startingRoom
+     */
     public void setStartingRoom(String startingRoom) {
         this.startingRoom = startingRoom;
     }
@@ -56,12 +59,18 @@ public class Layout {
         return this;
     }
 
-    @JsonProperty("endingRoom")
+    /**
+     *
+     * @return
+     */
     public String getEndingRoom() {
         return endingRoom;
     }
 
-    @JsonProperty("endingRoom")
+    /**
+     *
+     * @param endingRoom
+     */
     public void setEndingRoom(String endingRoom) {
         this.endingRoom = endingRoom;
     }
@@ -71,12 +80,18 @@ public class Layout {
         return this;
     }
 
-    @JsonProperty("rooms")
+    /**
+     *
+     * @return
+     */
     public List<Room> getRooms() {
         return rooms;
     }
 
-    @JsonProperty("rooms")
+    /**
+     *
+     * @param rooms
+     */
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }

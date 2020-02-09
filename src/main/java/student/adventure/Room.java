@@ -15,17 +15,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class Room {
 
-    @JsonProperty("name")
+    //
     private String name;
-    @JsonProperty("description")
+
+    //
     private String description;
-    @JsonProperty("items")
+
+    //
     private List<String> items = null;
-    @JsonProperty("directions")
+
+    //
     private List<Direction> directions = null;
 
     /**
-     * No args constructor for use in serialization
+     * Empty constructor
      * 
      */
     public Room() {
@@ -46,61 +49,105 @@ public class Room {
         this.directions = directions;
     }
 
-    @JsonProperty("name")
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
-    @JsonProperty("name")
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public Room withName(String name) {
         this.name = name;
         return this;
     }
 
-    @JsonProperty("description")
+    /**
+     *
+     * @return
+     */
     public String getDescription() {
         return description;
     }
 
-    @JsonProperty("description")
+    /**
+     *
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     *
+     * @param description
+     * @return
+     */
     public Room withDescription(String description) {
         this.description = description;
         return this;
     }
 
-    @JsonProperty("items")
+    /**
+     *
+     * @return
+     */
     public List<String> getItems() {
         return items;
     }
 
-    @JsonProperty("items")
+    /**
+     *
+     * @param items
+     */
     public void setItems(List<String> items) {
         this.items = items;
     }
 
+    /**
+     *
+     * @param items
+     * @return
+     */
     public Room withItems(List<String> items) {
         this.items = items;
         return this;
     }
 
-    @JsonProperty("directions")
+    /**
+     *
+     * @return
+     */
     public List<Direction> getDirections() {
         return directions;
     }
 
-    @JsonProperty("directions")
+    /**
+     *
+     * @param directions
+     */
     public void setDirections(List<Direction> directions) {
         this.directions = directions;
     }
 
+    /**
+     *
+     * @param directions
+     * @return
+     */
     public Room withDirections(List<Direction> directions) {
         this.directions = directions;
         return this;

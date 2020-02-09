@@ -12,9 +12,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class Direction {
 
-    @JsonProperty("directionName")
     private String directionName;
-    @JsonProperty("room")
+
     private String room;
 
     /**
@@ -35,12 +34,10 @@ public class Direction {
         this.room = room;
     }
 
-    @JsonProperty("directionName")
     public String getDirectionName() {
         return directionName;
     }
 
-    @JsonProperty("directionName")
     public void setDirectionName(String directionName) {
         this.directionName = directionName;
     }
@@ -50,12 +47,10 @@ public class Direction {
         return this;
     }
 
-    @JsonProperty("room")
     public String getRoom() {
         return room;
     }
 
-    @JsonProperty("room")
     public void setRoom(String room) {
         this.room = room;
     }
