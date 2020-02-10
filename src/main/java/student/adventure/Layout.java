@@ -16,7 +16,7 @@ public class Layout {
 
     private String startingRoom;
     private String endingRoom;
-    private List<Room> rooms = null;
+    private List<Room> rooms;
 
     /**
      * No args constructor for use in serialization
@@ -32,7 +32,6 @@ public class Layout {
      * @param endingRoom
      */
     public Layout(String startingRoom, String endingRoom, List<Room> rooms) {
-        super();
         this.startingRoom = startingRoom;
         this.endingRoom = endingRoom;
         this.rooms = rooms;
