@@ -1,15 +1,17 @@
 package student.adventure;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Adventure {
 
     /**
      * As long as the player has not reached the final room, the game continues
-     * @param gameLayout
+     * This function then handles user input to change rooms if the user enters a valid input
+     * Relies on helper functions to make this happen
+     *
+     * @param gameLayout A Layout object that contains the list of the rooms, starting & ending room
+     *                   Used those objects to create functionality
      */
     public static void continueGame(Layout gameLayout) {
 
@@ -30,37 +32,38 @@ public class Adventure {
 
             System.out.println("From here, you can go: " + directions);
 
-            String answer = consoleInput.nextLine();
+            String userAnswer = consoleInput.nextLine();
 
-            if (answer.equals("quit") || answer.equals("exit")) {
+            if (userAnswer.equals("quit") || userAnswer.equals("exit")) {
                 //exit the program
                 System.exit(0);
             }
 
             else {
 
-                boolean isValid = gameLayout.getRoomDirections(answer, currentRoomStr);
+                //calls on helper function
+                boolean isValid = gameLayout.getRoomDirections(userAnswer, currentRoomStr);
                 String go = "go";
                 // if they typed in a valid command
-                if (answer.substring(0, go.length()).equalsIgnoreCase("go") && isValid) {
+                if (userAnswer.substring(0, go.length()).equalsIgnoreCase("go") && isValid) {
 
-                    answer = answer.toLowerCase();
+                    userAnswer = userAnswer.toLowerCase();
 
                     //changes the current room string to where they'd like to go
-                    currentRoomStr = gameLayout.getRoomDirectionsStr(answer, currentRoomStr);
+                    currentRoomStr = gameLayout.changeRoom(userAnswer, currentRoomStr);
 
                 }
 
                 //if they typed in somewhere they can't go
-                else if (answer.substring(0, 2).equalsIgnoreCase("go")) {
+                else if (userAnswer.substring(0, 2).equalsIgnoreCase("go")) {
 
-                    System.out.println("I can't " + answer);
+                    System.out.println("I can't " + userAnswer);
 
                 }
 
                 else {
 
-                    System.out.println("I don't understand '" + answer + "'");
+                    System.out.println("I don't understand '" + userAnswer + "'");
 
                 }
 
@@ -68,14 +71,17 @@ public class Adventure {
 
         }
 
+        // the current room is the final room, and the game is over
         System.out.println("You've reached the final room, the game is over!");
     }
 
     /**
+     * This function essentially turns a string of a room object into the corresponding room object
+     * Used to change the room object when user moves
      *
-     * @param room The current room the user is in (as a string)
-     * @param roomObjs The list of rooms
-     * @return
+     * @param room The current room the user is in (as a string object)
+     * @param roomObjs The list of all rooms
+     * @return Corresponding (to String) room object
      */
     static Room getRoomObj(String room, List<Room> roomObjs) {
 
@@ -92,9 +98,10 @@ public class Adventure {
     }
 
     /**
+     * Takes directions list and outputs a String of all to displau to console
      *
-     * @param dirsList
-     * @return
+     * @param dirsList A list of possible directions that the user can move to
+     * @return String of directions with space between them
      */
     static String combineDirections(List<Direction> dirsList) {
 
@@ -110,14 +117,3 @@ public class Adventure {
     }
 
 }
-
-// while current room is not end room
-// once you're given the current room string, get the room object
-// then print description
-// take in user input from scanner
-// then determine if input is valid or not
-// its valid if input starts with go
-// and the direction that they said to go is in the list of possible directions
-// if its not valid then
-// if it is valid then you find the new room based on the direction that you've been given
-// then set that as your current room

@@ -39,7 +39,7 @@ public class Layout {
 
     /**
      *
-     * @return
+     * @return starting room
      */
     public String getStartingRoom() {
         return startingRoom;
@@ -47,7 +47,7 @@ public class Layout {
 
     /**
      *
-     * @param startingRoom
+     * @param startingRoom room that you want to set.
      */
     public void setStartingRoom(String startingRoom) {
         this.startingRoom = startingRoom;
@@ -55,7 +55,7 @@ public class Layout {
 
     /**
      *
-     * @return
+     * @return ending room of game
      */
     public String getEndingRoom() {
         return endingRoom;
@@ -63,7 +63,7 @@ public class Layout {
 
     /**
      *
-     * @param endingRoom
+     * @param endingRoom room you want ending room to be
      */
     public void setEndingRoom(String endingRoom) {
         this.endingRoom = endingRoom;
@@ -71,7 +71,7 @@ public class Layout {
 
     /**
      *
-     * @return
+     * @return the entire list of rooms
      */
     public List<Room> getRooms() {
         return rooms;
@@ -79,7 +79,7 @@ public class Layout {
 
     /**
      *
-     * @param rooms
+     * @param rooms rooms you want to set
      */
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
@@ -87,19 +87,19 @@ public class Layout {
 
 
     /**
-     *
-     * @param input
-     * @param roomRightNow currentRoom
-     * @return
+     * This checks if the user's given direction is valid
+     * @param userInpDirection user input direction
+     * @param roomRightNow the current room, as a String
+     * @return a boolean of whether the direction leads to a room
      */
-    boolean getRoomDirections(String input, String roomRightNow) {
+    boolean isGivenRoomValid(String userInpDirection, String roomRightNow) {
         for (int i = 0; i < rooms.size(); i++) {
 
             if (rooms.get(i).getName().equals(roomRightNow)) {
 
                 for (Direction dirs: rooms.get(i).getDirections()) {
 
-                    String[] strings = input.split(" ");
+                    String[] strings = userInpDirection.split(" ");
                     if (strings.length <=1) {
                         return false;
                     }
@@ -118,19 +118,20 @@ public class Layout {
     }
 
     /**
+     * Helper function to change the room the user is in, based on direction given
      *
-     * @param input
-     * @param roomRightNow currentRoom
-     * @return
+     * @param userInpDirection the direction the user elects to go in
+     * @param roomRightNow currentRoom the current room
+     * @return the new room, as a String
      */
-    public String getRoomDirectionsStr(String input, String roomRightNow) {
+    public String changeRoom(String userInpDirection, String roomRightNow) {
         for (int i = 0; i < rooms.size(); i++) {
 
             if (rooms.get(i).getName().equals(roomRightNow)) {
 
                 for (Direction dirs: rooms.get(i).getDirections()) {
 
-                    String[] strings = input.split(" ");
+                    String[] strings = userInpDirection.split(" ");
                     if (strings[1].equalsIgnoreCase(dirs.getDirectionName())) {
 
                         return dirs.getRoom();

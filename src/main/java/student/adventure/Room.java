@@ -49,76 +49,39 @@ public class Room {
         this.directions = directions;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     *
-     * @param name
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     *
-     * @param name
-     * @return
-     */
     public Room withName(String name) {
         this.name = name;
         return this;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getDescription() {
         return description;
     }
 
-    /**
-     *
-     * @param description
-     */
     public void setDescription(String description) {
         this.description = description;
     }
 
-    /**
-     *
-     * @return
-     */
     public List<String> getItems() {
         return items;
     }
 
-    /**
-     *
-     * @param items
-     */
     public void setItems(List<String> items) {
         this.items = items;
     }
 
-    /**
-     *
-     * @return
-     */
     public List<Direction> getDirections() {
         return directions;
     }
 
-    /**
-     *
-     * @param directions
-     */
     public void setDirections(List<Direction> directions) {
         this.directions = directions;
     }

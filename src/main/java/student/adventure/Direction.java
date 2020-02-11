@@ -22,12 +22,7 @@ public class Direction {
      */
     public Direction() {
     }
-
-    /**
-     * 
-     * @param directionName
-     * @param room
-     */
+    
     public Direction(String directionName, String room) {
         super();
         this.directionName = directionName;
