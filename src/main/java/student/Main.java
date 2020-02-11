@@ -22,8 +22,12 @@ public class Main {
             Adventure.continueGame(layout);
         } else {
             File file = new File(args[0]);
-            Layout layout = new ObjectMapper().readValue(file, Layout.class);
-            Adventure.continueGame(layout);
+            if (!file.canExecute()) {
+                System.out.println("This file cannot execute, sorry!");
+            } else {
+                Layout layout = new ObjectMapper().readValue(file, Layout.class);
+                Adventure.continueGame(layout);
+            }
         }
     }
 }

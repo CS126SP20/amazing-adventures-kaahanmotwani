@@ -53,11 +53,6 @@ public class Layout {
         this.startingRoom = startingRoom;
     }
 
-    public Layout withStartingRoom(String startingRoom) {
-        this.startingRoom = startingRoom;
-        return this;
-    }
-
     /**
      *
      * @return
@@ -72,11 +67,6 @@ public class Layout {
      */
     public void setEndingRoom(String endingRoom) {
         this.endingRoom = endingRoom;
-    }
-
-    public Layout withEndingRoom(String endingRoom) {
-        this.endingRoom = endingRoom;
-        return this;
     }
 
     /**
@@ -95,10 +85,6 @@ public class Layout {
         this.rooms = rooms;
     }
 
-//    public Layout withRooms(List<Room> rooms) {
-//        this.rooms = rooms;
-//        return this;
-//    }
 
     /**
      *

@@ -20,12 +20,10 @@ public class AdventureTest {
         // This is run before every test.
     }
 
-//    @Test
-//    public void testCombineDirsHelper() throws Exception {
-//        List<Direction> testFunc = new List<>();
-//        testFunc =
-//        assertEquals("how are you", Adventure.combineDirections("how", "are", "you"));
-//    }
+    @Test
+    public void testCombineDirsHelper() throws Exception {
+        assertEquals("how are you", Adventure.combineDirections("how", "are", "you"));
+    }
 //
 //    @Test
 //    public void testTieGame() throws Exception {

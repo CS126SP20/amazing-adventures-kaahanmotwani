@@ -93,16 +93,6 @@ public class Room {
 
     /**
      *
-     * @param description
-     * @return
-     */
-    public Room withDescription(String description) {
-        this.description = description;
-        return this;
-    }
-
-    /**
-     *
      * @return
      */
     public List<String> getItems() {
@@ -115,16 +105,6 @@ public class Room {
      */
     public void setItems(List<String> items) {
         this.items = items;
-    }
-
-    /**
-     *
-     * @param items
-     * @return
-     */
-    public Room withItems(List<String> items) {
-        this.items = items;
-        return this;
     }
 
     /**
@@ -143,14 +123,5 @@ public class Room {
         this.directions = directions;
     }
 
-    /**
-     *
-     * @param directions
-     * @return
-     */
-    public Room withDirections(List<Direction> directions) {
-        this.directions = directions;
-        return this;
-    }
 
 }
