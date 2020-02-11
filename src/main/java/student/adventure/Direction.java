@@ -22,7 +22,7 @@ public class Direction {
      */
     public Direction() {
     }
-    
+
     public Direction(String directionName, String room) {
         super();
         this.directionName = directionName;

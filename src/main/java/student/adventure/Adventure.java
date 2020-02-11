@@ -42,7 +42,7 @@ public class Adventure {
             else {
 
                 //calls on helper function
-                boolean isValid = gameLayout.getRoomDirections(userAnswer, currentRoomStr);
+                boolean isValid = gameLayout.isGivenRoomValid(userAnswer, currentRoomStr);
                 String go = "go";
                 // if they typed in a valid command
                 if (userAnswer.substring(0, go.length()).equalsIgnoreCase("go") && isValid) {
