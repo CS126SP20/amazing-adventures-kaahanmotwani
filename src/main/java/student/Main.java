@@ -19,11 +19,11 @@ public class Main {
         if (args == null || args.length == 0) {
             File file = new File("src/main/resources/siebel.json");
             Layout layout = new ObjectMapper().readValue(file, Layout.class);
-            Adventure.startGame(layout);
+            Adventure.continueGame(layout);
         } else {
             File file = new File(args[0]);
             Layout layout = new ObjectMapper().readValue(file, Layout.class);
-            Adventure.startGame(layout);
+            Adventure.continueGame(layout);
         }
     }
 }

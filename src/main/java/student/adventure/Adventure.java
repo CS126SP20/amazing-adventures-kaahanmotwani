@@ -6,54 +6,52 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Adventure {
-    private List<Room> rooms;
-    public Adventure() {
 
-    }
 
     /**
-     *
+     * As long as the player has not reached the final room, the game continues
      * @param gameLayout
      */
-    public static void startGame(Layout gameLayout) {
-        Map<String, String> roomList = new HashMap<>();
+    public static void continueGame(Layout gameLayout) {
 
-        for (Room room: gameLayout.getRooms()) {
-            roomList.put(room.getName(), room.getDescription());
+    }
+
+    public static Room getRoomObj(String room, List<Room> roomObj) {
+
+        for (int i = 0; i < roomObj.size(); i++) {
+
+            Room currentRoom = roomObj.get(i);
+
+            if (currentRoom.getName().equals(room)) {
+
+                return currentRoom;
+            }
+        }
+        return null;
+    }
+
+    public static String combineDirections(List<Direction> dirsList) {
+
+        String returned = "";
+
+        for (int i = 0; i < dirsList.size(); i++) {
+
+            returned += dirsList.get(i).getDirectionName() + " ";
+
         }
 
-        System.out.println(gameLayout.getRooms().get(0).getDescription());
-        System.out.println("From here, you can go: " + gameLayout.getRooms().get(0).getDirections().get(0).getDirectionName());
-
-        continueGame(gameLayout, roomList);
+        return returned;
     }
 
-    /**
-     *
-     * @param gameLayout
-     */
-    public static void continueGame(Layout gameLayout, Map<String, String> roomList) {
-        Scanner consoleInput = new Scanner(System.in);
-        boolean gameOver = (gameLayout.getStartingRoom().equals(gameLayout.getEndingRoom()));
-        while (!gameOver) {
-
-            String answer = consoleInput.nextLine();
-            if (answer.equals("quit") || answer.equals("exit")) {
-                System.out.println("GAEM OVEAEAER");
-                //exit the program
-            }
-            else {
-                System.out.println("From here, you can go: " + gameLayout.getRooms().get(0).getDirections().get(0).getDirectionName());
-            }
-            //play game
-        }
-        System.out.println("You've reached the final room, the game is over!");
-    }
-
-    /**
-     *
-     */
-    public static void endGame() {
-
-    }
 }
+
+// while current room is not end room
+// once you're given the current room string, get the room object
+// then print description
+// take in user input from scanner
+// then determine if input is valid or not
+// its valid if input starts with go
+// and the direction that they said to go is in the list of possible directions
+// if its not valid then
+// if it is valid then you find the new room based on the direction that you've been given
+// then set that as your current room

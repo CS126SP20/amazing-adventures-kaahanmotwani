@@ -95,9 +95,67 @@ public class Layout {
         this.rooms = rooms;
     }
 
-    public Layout withRooms(List<Room> rooms) {
-        this.rooms = rooms;
-        return this;
+//    public Layout withRooms(List<Room> rooms) {
+//        this.rooms = rooms;
+//        return this;
+//    }
+
+    /**
+     *
+     * @param input
+     * @param roomRightNow currentRoom
+     * @return
+     */
+    public boolean getRoomDirections(String input, String roomRightNow) {
+        for (int i = 0; i < rooms.size(); i++) {
+
+            if (rooms.get(i).getName().equals(roomRightNow)) {
+
+                for (Direction dirs: rooms.get(i).getDirections()) {
+
+                    String[] strings = input.split(" ");
+                    if (strings.length <=1) {
+                        return false;
+                    }
+                    if (strings[1].equalsIgnoreCase(dirs.getDirectionName())) {
+
+                        return true;
+
+                    }
+
+                }
+
+            }
+
+        }
+        return false;
     }
 
+    /**
+     *
+     * @param input
+     * @param roomRightNow currentRoom
+     * @return
+     */
+    public String getRoomDirectionsStr(String input, String roomRightNow) {
+        for (int i = 0; i < rooms.size(); i++) {
+
+            if (rooms.get(i).getName().equals(roomRightNow)) {
+
+                for (Direction dirs: rooms.get(i).getDirections()) {
+
+                    String[] strings = input.split(" ");
+                    if (strings[1].equalsIgnoreCase(dirs.getDirectionName())) {
+
+                        return dirs.getRoom();
+
+                    }
+
+                }
+
+            }
+
+        }
+        return null;
+    }
 }
