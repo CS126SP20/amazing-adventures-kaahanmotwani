@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class Adventure {
 
-
     /**
      * As long as the player has not reached the final room, the game continues
      * @param gameLayout
@@ -17,11 +16,17 @@ public class Adventure {
 
     }
 
-    public static Room getRoomObj(String room, List<Room> roomObj) {
+    /**
+     *
+     * @param room The current room the user is in (as a string)
+     * @param roomObjs The list of rooms
+     * @return
+     */
+    static Room getRoomObj(String room, List<Room> roomObjs) {
 
-        for (int i = 0; i < roomObj.size(); i++) {
+        for (int i = 0; i < roomObjs.size(); i++) {
 
-            Room currentRoom = roomObj.get(i);
+            Room currentRoom = roomObjs.get(i);
 
             if (currentRoom.getName().equals(room)) {
 
@@ -31,7 +36,12 @@ public class Adventure {
         return null;
     }
 
-    public static String combineDirections(List<Direction> dirsList) {
+    /**
+     *
+     * @param dirsList
+     * @return
+     */
+    static String combineDirections(List<Direction> dirsList) {
 
         String returned = "";
 

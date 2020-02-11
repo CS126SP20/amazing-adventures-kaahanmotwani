@@ -92,7 +92,7 @@ public class Layout {
      * @param roomRightNow currentRoom
      * @return
      */
-    public boolean getRoomDirections(String input, String roomRightNow) {
+    boolean getRoomDirections(String input, String roomRightNow) {
         for (int i = 0; i < rooms.size(); i++) {
 
             if (rooms.get(i).getName().equals(roomRightNow)) {
