@@ -22,12 +22,11 @@ public class Main {
             Adventure.continueGame(layout);
         } else {
             File file = new File(args[0]);
-            if (!file.canExecute()) {
-                System.out.println("This file cannot execute, sorry!");
-            } else {
-                Layout layout = new ObjectMapper().readValue(file, Layout.class);
-                Adventure.continueGame(layout);
+            if (!file.exists()) {
+                System.out.println("This file does not exist, sorry!");
             }
+            Layout layout = new ObjectMapper().readValue(file, Layout.class);
+            Adventure.continueGame(layout);
         }
     }
 }
