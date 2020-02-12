@@ -76,7 +76,7 @@ public class Adventure {
     }
 
     /**
-     * This function essentially turns a string of a room object into the corresponding room object
+     * This function takes a string of a room object, returns the corresponding room object
      * Used to change the room object when user moves
      *
      * @param room The current room the user is in (as a string object)
