@@ -28,5 +28,6 @@ public class Main {
             Layout layout = new ObjectMapper().readValue(file, Layout.class);
             Adventure.continueGame(layout);
         }
+        //TODO check if JSON files have null rooms, directions etc
     }
 }

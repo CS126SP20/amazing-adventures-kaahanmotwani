@@ -8,6 +8,8 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,4 +69,5 @@ public class AdventureTest {
     public void testChangeRoomHelper() throws Exception {
         assertEquals("SiebelEntry", mapper.changeRoom("go east", "MatthewsStreet"));
     }
+
 }

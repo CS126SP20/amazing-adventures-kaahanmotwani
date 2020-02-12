@@ -1,5 +1,6 @@
 package student.adventure;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Scanner;
 
@@ -55,7 +56,7 @@ public class Adventure {
                 }
 
                 //if they typed in somewhere they can't go
-                else if (userAnswer.substring(0, 2).equalsIgnoreCase("go")) {
+                else if (userAnswer.substring(0, go.length()).equalsIgnoreCase("go")) {
 
                     System.out.println("I can't " + userAnswer);
 
