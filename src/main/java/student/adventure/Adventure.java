@@ -106,6 +106,10 @@ public class Adventure {
      */
     static String combineDirections(List<Direction> dirsList) {
 
+        if (dirsList == null || dirsList.size() == 0) {
+            return null;
+        }
+
         String returned = "";
 
         for (int i = 0; i < dirsList.size(); i++) {

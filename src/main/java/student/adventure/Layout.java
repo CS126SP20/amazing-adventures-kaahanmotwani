@@ -100,9 +100,11 @@ public class Layout {
                 for (Direction dirs: rooms.get(i).getDirections()) {
 
                     String[] strings = userInpDirection.split(" ");
+
                     if (strings.length <=1) {
                         return false;
                     }
+
                     if (strings[1].equalsIgnoreCase(dirs.getDirectionName())) {
 
                         return true;
@@ -125,6 +127,7 @@ public class Layout {
      * @return the new room, as a String
      */
      String changeRoom(String userInpDirection, String roomRightNow) {
+
         for (int i = 0; i < rooms.size(); i++) {
 
             if (rooms.get(i).getName().equals(roomRightNow)) {
@@ -132,6 +135,7 @@ public class Layout {
                 for (Direction dirs: rooms.get(i).getDirections()) {
 
                     String[] strings = userInpDirection.split(" ");
+
                     if (strings[1].equalsIgnoreCase(dirs.getDirectionName())) {
 
                         return dirs.getRoom();
