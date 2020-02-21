@@ -19,7 +19,7 @@ import java.util.List;
 public class AdventureTest {
 
     Layout mapper;
-    List<Direction> testingDirs;
+    List<Direction> testingDirections;
     List<Room> testRooms;
     Room room1 = new Room();
     Room room2 = new Room();
@@ -39,47 +39,52 @@ public class AdventureTest {
      * Want this to run before to test my helper functions,
      * which rely on lists of Directions
      */
-    @Before
-    public void setTestDirList() {
+    public void setTestDirectionList() {
         Direction first = new Direction("up", "first");
         Direction second = new Direction("down", "second");
-        testingDirs = new ArrayList<Direction>();
-        testingDirs.add(first);
-        testingDirs.add(second);
+        testingDirections = new ArrayList<Direction>();
+        testingDirections.add(first);
+        testingDirections.add(second);
     }
 
-    @Before
-    public void makeRoomList() throws Exception {
-        room1 = new Room("room1", "first", null, testingDirs);
-        room2 = new Room("room2", "second", null, testingDirs);
+    /**
+     *
+     */
+    public void makeRoomList() {
+        setTestDirectionList();
+        room1 = new Room("room1", "first", null, testingDirections);
+        room2 = new Room("room2", "second", null, testingDirections);
         testRooms = new ArrayList<Room>();
         testRooms.add(room1);
         testRooms.add(room2);
     }
 
     @Test
-    public void testCombineDirsHelper() throws Exception {
-        assertEquals("up down ", Adventure.combineDirections(testingDirs));
+    public void testCombineDirectionsHelper() throws Exception {
+        setTestDirectionList();
+        assertEquals("up down ", Adventure.combineDirections(testingDirections));
     }
 
     @Test
-    public void testCombineDirsHelperForNull() throws Exception {
+    public void testCombineDirectionsHelperForNull() throws Exception {
         assertEquals(null, Adventure.combineDirections(null));
     }
 
     @Test
-    public void testCombineDirsHelperForEmpty() throws Exception {
+    public void testCombineDirectionsHelperForEmpty() throws Exception {
         List<Direction> empty = new ArrayList<Direction>();
         assertEquals(null, Adventure.combineDirections(empty));
     }
 
     @Test
-    public void testGetRoomObjHelperForObject() throws Exception {
+    public void testGetRoomHelperForObject() throws Exception {
+        makeRoomList();
         assertEquals(room1, Adventure.getRoomObj("room1", testRooms));
     }
 
     @Test
-    public void testGetRoomObjHelperForNull() throws Exception {
+    public void testGetRoomHelperForNull() throws Exception {
+        makeRoomList();
         assertEquals(null, Adventure.getRoomObj("not a room", testRooms));
     }
 
