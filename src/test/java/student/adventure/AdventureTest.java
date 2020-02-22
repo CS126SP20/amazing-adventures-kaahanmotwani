@@ -36,8 +36,7 @@ public class AdventureTest {
     }
 
     /**
-     * Want this to run before to test my helper functions,
-     * which rely on lists of Directions
+     * Creates a list of directions and populates it for tests that need a mock list of directions
      */
     public void setTestDirectionList() {
         Direction first = new Direction("up", "first");
@@ -48,7 +47,7 @@ public class AdventureTest {
     }
 
     /**
-     *
+     * Creates a list of rooms and populates it for tests that need a mock list of rooms
      */
     public void makeRoomList() {
         setTestDirectionList();
@@ -60,51 +59,57 @@ public class AdventureTest {
     }
 
     @Test
-    public void testCombineDirectionsHelper() throws Exception {
+    public void testCombineDirections() throws Exception {
         setTestDirectionList();
         assertEquals("up down ", Adventure.combineDirections(testingDirections));
     }
 
     @Test
-    public void testCombineDirectionsHelperForNull() throws Exception {
+    public void testCombineDirectionsForNull() throws Exception {
         assertEquals(null, Adventure.combineDirections(null));
     }
 
     @Test
-    public void testCombineDirectionsHelperForEmpty() throws Exception {
+    public void testCombineDirectionsForEmpty() throws Exception {
         List<Direction> empty = new ArrayList<Direction>();
         assertEquals(null, Adventure.combineDirections(empty));
     }
 
     @Test
-    public void testGetRoomHelperForObject() throws Exception {
+    public void testGetRoomForObject() throws Exception {
         makeRoomList();
         assertEquals(room1, Adventure.getRoomObj("room1", testRooms));
     }
 
     @Test
-    public void testGetRoomHelperForNull() throws Exception {
+    public void testGetRoomForNull() throws Exception {
         makeRoomList();
         assertEquals(null, Adventure.getRoomObj("not a room", testRooms));
     }
 
     @Test
-    public void testIsGivenRoomValidHelper() throws Exception {
+    public void testIsGivenRoomDirectionValid() throws Exception {
         assertEquals(true, mapper.isGivenRoomValid("go west", "SiebelEntry"));
     }
 
     @Test
-    public void testIsGivenRoomInvalidHelper() throws Exception {
+    public void testIsGivenRoomValidForWrongDirection() throws Exception {
+        assertEquals(false, mapper.isGivenRoomValid("go south", "SiebelEntry"));
+    }
+
+    @Test
+    public void testIsGivenRoomInvalid() throws Exception {
         assertEquals(false, mapper.isGivenRoomValid("go west", "blah blah"));
     }
 
     @Test
-    public void testChangeRoomHelperValidRoom() throws Exception {
-        assertEquals("SiebelEntry", mapper.changeRoom("go east", "MatthewsStreet"));
+    public void testChangeRoomForValidRoom() throws Exception {
+        assertEquals("SiebelEntry", mapper.changeRoom("go east",
+                "MatthewsStreet"));
     }
 
     @Test
-    public void testChangeRoomHelperInvalidRoom() throws Exception {
+    public void testChangeRoomForInvalidRoom() throws Exception {
         assertEquals(null, mapper.changeRoom("go east", "abcdef"));
     }
 
