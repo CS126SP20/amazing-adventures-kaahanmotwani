@@ -94,27 +94,16 @@ public class Layout {
      */
     boolean isGivenRoomValid(String userInpDirection, String roomRightNow) {
         for (int i = 0; i < rooms.size(); i++) {
-
             if (rooms.get(i).getName().equals(roomRightNow)) {
-
                 for (Direction dirs: rooms.get(i).getDirections()) {
-
                     String[] strings = userInpDirection.split(" ");
-
                     if (strings.length <=1) {
                         return false;
-                    }
-
-                    if (strings[1].equalsIgnoreCase(dirs.getDirectionName())) {
-
+                    } else if (strings[1].equalsIgnoreCase(dirs.getDirectionName())) {
                         return true;
-
                     }
-
                 }
-
             }
-
         }
         return false;
     }
@@ -129,23 +118,14 @@ public class Layout {
      String changeRoom(String userInpDirection, String roomRightNow) {
 
         for (int i = 0; i < rooms.size(); i++) {
-
             if (rooms.get(i).getName().equals(roomRightNow)) {
-
                 for (Direction dirs: rooms.get(i).getDirections()) {
-
                     String[] strings = userInpDirection.split(" ");
-
                     if (strings[1].equalsIgnoreCase(dirs.getDirectionName())) {
-
                         return dirs.getRoom();
-
                     }
-
                 }
-
             }
-
         }
         return null;
     }
