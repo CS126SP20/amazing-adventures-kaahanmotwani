@@ -15,63 +15,38 @@ public class Adventure {
      *                   Used those objects to create functionality
      */
     public static void continueGame(Layout gameLayout) {
-
         Scanner consoleInput = new Scanner(System.in);
-
         String currentRoomStr = gameLayout.getStartingRoom(); //string
-
         boolean gameOver = (currentRoomStr.equals(gameLayout.getEndingRoom()));
 
         //while the current room is not the final room
         while (!gameOver) {
-
             Room currentRoom = getRoomObj(currentRoomStr, gameLayout.getRooms());
-
             System.out.println(currentRoom.getDescription());
-
             String directions = combineDirections(currentRoom.getDirections());
-
             System.out.println("From here, you can go: " + directions);
-
             String userAnswer = consoleInput.nextLine();
-
             if (userAnswer.equals("quit") || userAnswer.equals("exit")) {
                 //exit the program
                 System.exit(0);
-            }
-
-            else {
-
+            } else {
                 //calls on helper function
                 boolean isValid = gameLayout.isGivenRoomValid(userAnswer, currentRoomStr);
                 String go = "go";
                 // if they typed in a valid command
                 if (userAnswer.substring(0, go.length()).equalsIgnoreCase("go") && isValid) {
-
                     userAnswer = userAnswer.toLowerCase();
-
                     //changes the current room string to where they'd like to go
                     currentRoomStr = gameLayout.changeRoom(userAnswer, currentRoomStr);
 
-                }
-
-                //if they typed in somewhere they can't go
-                else if (userAnswer.substring(0, go.length()).equalsIgnoreCase("go")) {
-
+                } else if (userAnswer.substring(0, go.length()).equalsIgnoreCase("go")) {
+                    //if they typed in somewhere they can't go
                     System.out.println("I can't " + userAnswer);
-
-                }
-
-                else {
-
+                } else {
                     System.out.println("I don't understand '" + userAnswer + "'");
-
                 }
-
             }
-
         }
-
         // the current room is the final room, and the game is over
         System.out.println("You've reached the final room, the game is over!");
     }
@@ -85,13 +60,9 @@ public class Adventure {
      * @return Corresponding (to String) room object
      */
     static Room getRoomObj(String room, List<Room> roomObjs) {
-
         for (int i = 0; i < roomObjs.size(); i++) {
-
             Room currentRoom = roomObjs.get(i);
-
             if (currentRoom.getName().equals(room)) {
-
                 return currentRoom;
             }
         }
@@ -111,13 +82,9 @@ public class Adventure {
         }
 
         String returned = "";
-
         for (int i = 0; i < dirsList.size(); i++) {
-
             returned += dirsList.get(i).getDirectionName() + " ";
-
         }
-
         return returned;
     }
 

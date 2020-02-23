@@ -116,7 +116,6 @@ public class Layout {
      * @return the new room, as a String
      */
      String changeRoom(String userInpDirection, String roomRightNow) {
-
         for (int i = 0; i < rooms.size(); i++) {
             if (rooms.get(i).getName().equals(roomRightNow)) {
                 for (Direction dirs: rooms.get(i).getDirections()) {

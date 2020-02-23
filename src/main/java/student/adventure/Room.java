@@ -15,16 +15,24 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class Room {
 
-    //
+    /**
+     * string of name of room
+     */
     private String name;
 
-    //
+    /**
+     * string of description of room
+     */
     private String description;
 
-    //
+    /**
+     * List of items as String objects
+     */
     private List<String> items = null;
 
-    //
+    /**
+     * List of Direction objects
+     */
     private List<Direction> directions = null;
 
     /**
@@ -34,13 +42,6 @@ public class Room {
     public Room() {
     }
 
-    /**
-     * 
-     * @param directions
-     * @param name
-     * @param description
-     * @param items
-     */
     public Room(String name, String description, List<String> items, List<Direction> directions) {
         super();
         this.name = name;

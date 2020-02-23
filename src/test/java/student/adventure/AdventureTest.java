@@ -24,6 +24,9 @@ public class AdventureTest {
     Room room1 = new Room();
     Room room2 = new Room();
 
+    /**
+     * Creates an object mapper to the Layout class, allowing tests to call methods from the class
+     */
     @Before
     public void setUp() {
         try {
