@@ -17,29 +17,30 @@ public class Adventure {
     public static void continueGame(Layout gameLayout) {
         Scanner consoleInput = new Scanner(System.in);
         String currentRoomStr = gameLayout.getStartingRoom(); //string
-        boolean gameOver = (currentRoomStr.equals(gameLayout.getEndingRoom()));
+        boolean isGameOver = (currentRoomStr.equals(gameLayout.getEndingRoom()));
 
         //while the current room is not the final room
-        while (!gameOver) {
+        while (!isGameOver) {
             Room currentRoom = getRoomObj(currentRoomStr, gameLayout.getRooms());
             System.out.println(currentRoom.getDescription());
             String directions = combineDirections(currentRoom.getDirections());
             System.out.println("From here, you can go: " + directions);
             String userAnswer = consoleInput.nextLine();
             if (userAnswer.equals("quit") || userAnswer.equals("exit")) {
-                //exit the program
+                //exits the program
                 System.exit(0);
             } else {
-                //calls on helper function
+
+                //calls on helper function to check if the room that they want to go to is valid
                 boolean isValid = gameLayout.isGivenRoomValid(userAnswer, currentRoomStr);
                 String go = "go";
                 // if they typed in a valid command
-                if (userAnswer.substring(0, go.length()).equalsIgnoreCase("go") && isValid) {
+                if (isValid && userAnswer.substring(0, go.length()).equalsIgnoreCase("go")) {
                     userAnswer = userAnswer.toLowerCase();
                     //changes the current room string to where they'd like to go
                     currentRoomStr = gameLayout.changeRoom(userAnswer, currentRoomStr);
-
-                } else if (userAnswer.substring(0, go.length()).equalsIgnoreCase("go")) {
+                    isGameOver = checkGameOver(gameLayout, currentRoomStr);
+                } else if (userAnswer.substring(0, go.length() + 1).equalsIgnoreCase("go ")) {
                     //if they typed in somewhere they can't go
                     System.out.println("I can't " + userAnswer);
                 } else {
@@ -72,20 +73,34 @@ public class Adventure {
     /**
      * Takes directions list and outputs a String of all to displau to console
      *
-     * @param dirsList A list of possible directions that the user can move to
+     * @param directionsList A list of possible directions that the user can move to
      * @return String of directions with space between them
      */
-    static String combineDirections(List<Direction> dirsList) {
-
-        if (dirsList == null || dirsList.size() == 0) {
+    static String combineDirections(List<Direction> directionsList) {
+        if (directionsList == null || directionsList.size() == 0) {
             return null;
         }
 
-        String returned = "";
-        for (int i = 0; i < dirsList.size(); i++) {
-            returned += dirsList.get(i).getDirectionName() + " ";
+        StringBuilder returned = new StringBuilder("");
+        for (Direction direction : directionsList) {
+            returned.append(direction.getDirectionName() + " ");
         }
-        return returned;
+
+        return returned.toString();
+    }
+
+    /**
+     * Checks if the game is over by checking if the current room is the ending room (used everytime the user goes
+     * somewhere valid)
+     * @param gameLayout the game Layout being played on
+     * @param currentRoomString the current room, as a string
+     * @return whether the game is over or not
+     */
+    static boolean checkGameOver(Layout gameLayout, String currentRoomString) {
+        if (currentRoomString.equals(gameLayout.getEndingRoom())) {
+            return true;
+        }
+        return false;
     }
 
 }

@@ -16,18 +16,17 @@ public class Main {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
+        File file;
         if (args == null || args.length == 0) {
-            File file = new File("src/main/resources/siebel.json");
-            Layout layout = new ObjectMapper().readValue(file, Layout.class);
-            Adventure.continueGame(layout);
+            file = new File("src/main/resources/siebel.json");
         } else {
-            File file = new File(args[0]);
-            if (!file.exists()) {
+            file = new File(args[0]);
+            if (!(file).exists()) {
                 System.out.println("This file does not exist, sorry!");
             }
-            Layout layout = new ObjectMapper().readValue(file, Layout.class);
-            Adventure.continueGame(layout);
         }
+        Layout layout = new ObjectMapper().readValue(file, Layout.class);
+        Adventure.continueGame(layout);
         //TODO check if JSON files have null rooms, directions etc
     }
 }
