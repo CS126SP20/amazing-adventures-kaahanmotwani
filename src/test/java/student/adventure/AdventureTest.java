@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class AdventureTest {
@@ -59,6 +60,15 @@ public class AdventureTest {
         testRooms = new ArrayList<Room>();
         testRooms.add(room1);
         testRooms.add(room2);
+    }
+
+    @Test
+    public void testQuitOrExit() throws Exception {
+        Scanner consoleInput = new Scanner(System.in);
+        String userAnswer = consoleInput.nextLine();
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(userAnswer.getBytes());
+        //TODO: Use expected system exit to add testing for that
+//        assertEquals();
     }
 
     @Test

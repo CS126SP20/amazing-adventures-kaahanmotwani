@@ -1,6 +1,7 @@
 package student.adventure;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,6 +20,9 @@ public class Adventure {
         String currentRoomStr = gameLayout.getStartingRoom(); //string
         boolean isGameOver = (currentRoomStr.equals(gameLayout.getEndingRoom()));
         final int LENGTH_OF_GO = 3;
+        System.out.println("Instructions for commands: \nType in 'go (valid direction)' to go somewhere" +
+                "\nType in 'add (item)' to add an item to the room\nType in 'remove (item)' to remove an item from" +
+                " the room \nType in 'examine' to see the room's description and items available\n");
 
         //while the current room is not the final room
         while (!isGameOver) {
@@ -31,12 +35,17 @@ public class Adventure {
             String userAnswer = consoleInput.nextLine();
 
             if (userAnswer.equals("quit") || userAnswer.equals("exit")) {
-                //exits the program
                 System.exit(0);
-            } else if (!userAnswer.contains("go ")) {
+            } else if (userAnswer.equalsIgnoreCase("examine")) {
+                //this will exit this iteration of the loop and print out the description of the room
+                continue;
+            } else if (!userAnswer.contains("go ") && !userAnswer.contains("add ")
+                    && !userAnswer.contains("remove ")) {
                 System.out.println("I don't understand '" + userAnswer + "'");
             } else {
-
+                if (addedOrRemovedItems(currentRoom, userAnswer)) {
+                    continue;
+                }
                 //calls on helper function to check if the room that they want to go to is valid
                 boolean isValid = gameLayout.isGivenRoomValid(userAnswer, currentRoomStr);
 
@@ -52,7 +61,8 @@ public class Adventure {
                 }
             }
         }
-        // the current room is the final room, and the game is over
+
+        // the current room is the final room, the while loop has completed, and thus the game is over
         System.out.println("You've reached the final room, the game is over!");
     }
 
@@ -125,5 +135,28 @@ public class Adventure {
         }
         return false;
     }
+
+    static boolean addedOrRemovedItems(Room currentRoom, String userAnswer) {
+        String[] inputStrings = userAnswer.split(" ");
+
+        for (String item : currentRoom.getItems()) {
+            if (inputStrings[0].equalsIgnoreCase("add")
+                    && !(inputStrings[1].equalsIgnoreCase(item))) {
+                List<String> items = currentRoom.getItems();
+                items.add(inputStrings[1]);
+                currentRoom.setItems(items);
+                return true;
+            } else if (inputStrings[0].equalsIgnoreCase("remove")
+                    && inputStrings[1].equalsIgnoreCase(item)) {
+                List<String> items = currentRoom.getItems();
+                items.remove(item);
+                currentRoom.setItems(items);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
 }
