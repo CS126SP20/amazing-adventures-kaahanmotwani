@@ -26,7 +26,10 @@ public class Adventure {
             System.out.println(currentRoom.getDescription());
             String directions = combineDirections(currentRoom.getDirections());
             System.out.println("From here, you can go: " + directions);
+            String items = combineItems(currentRoom.getItems());
+            System.out.println("Items visible: " + items);
             String userAnswer = consoleInput.nextLine();
+
             if (userAnswer.equals("quit") || userAnswer.equals("exit")) {
                 //exits the program
                 System.exit(0);
@@ -46,7 +49,7 @@ public class Adventure {
                 } else if (userAnswer.substring(0, LENGTH_OF_GO).equalsIgnoreCase("go ")) {
                     //if they typed in somewhere they can't go
                     System.out.println("I can't " + userAnswer);
-                } 
+                }
             }
         }
         // the current room is the final room, and the game is over
@@ -72,7 +75,7 @@ public class Adventure {
     }
 
     /**
-     * Takes directions list and outputs a String of all to displau to console
+     * Takes directions list and outputs a String of all to display to console
      *
      * @param directionsList A list of possible directions that the user can move to
      * @return String of directions with space between them
@@ -85,6 +88,25 @@ public class Adventure {
         StringBuilder returned = new StringBuilder("");
         for (Direction direction : directionsList) {
             returned.append(direction.getDirectionName() + " ");
+        }
+
+        return returned.toString();
+    }
+
+    /**
+     * Takes items list and outputs a String of all to display to console
+     *
+     * @param itemsList A list of possible items that the user sees
+     * @return String of items with space between them
+     */
+    static String combineItems(List<String> itemsList) {
+        if (itemsList == null || itemsList.size() == 0) {
+            return null;
+        }
+
+        StringBuilder returned = new StringBuilder("");
+        for (String item : itemsList) {
+            returned.append(item + " ");
         }
 
         return returned.toString();
