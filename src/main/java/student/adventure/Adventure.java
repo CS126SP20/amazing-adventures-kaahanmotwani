@@ -18,6 +18,7 @@ public class Adventure {
         Scanner consoleInput = new Scanner(System.in);
         String currentRoomStr = gameLayout.getStartingRoom(); //string
         boolean isGameOver = (currentRoomStr.equals(gameLayout.getEndingRoom()));
+        final int LENGTH_OF_GO = 3;
 
         //while the current room is not the final room
         while (!isGameOver) {
@@ -29,23 +30,23 @@ public class Adventure {
             if (userAnswer.equals("quit") || userAnswer.equals("exit")) {
                 //exits the program
                 System.exit(0);
+            } else if (!userAnswer.contains("go ")) {
+                System.out.println("I don't understand '" + userAnswer + "'");
             } else {
 
                 //calls on helper function to check if the room that they want to go to is valid
                 boolean isValid = gameLayout.isGivenRoomValid(userAnswer, currentRoomStr);
-                String go = "go";
+
                 // if they typed in a valid command
-                if (isValid && userAnswer.substring(0, go.length()).equalsIgnoreCase("go")) {
+                if (isValid && userAnswer.substring(0, LENGTH_OF_GO).equalsIgnoreCase("go ")) {
                     userAnswer = userAnswer.toLowerCase();
-                    //changes the current room string to where they'd like to go
+                    //changes the current room string to where they'd like to go and updates isGameOver
                     currentRoomStr = gameLayout.changeRoom(userAnswer, currentRoomStr);
                     isGameOver = checkGameOver(gameLayout, currentRoomStr);
-                } else if (userAnswer.substring(0, go.length() + 1).equalsIgnoreCase("go ")) {
+                } else if (userAnswer.substring(0, LENGTH_OF_GO).equalsIgnoreCase("go ")) {
                     //if they typed in somewhere they can't go
                     System.out.println("I can't " + userAnswer);
-                } else {
-                    System.out.println("I don't understand '" + userAnswer + "'");
-                }
+                } 
             }
         }
         // the current room is the final room, and the game is over
@@ -90,7 +91,7 @@ public class Adventure {
     }
 
     /**
-     * Checks if the game is over by checking if the current room is the ending room (used everytime the user goes
+     * Checks if the game is over by checking if the current room is the ending room (used every time the user goes
      * somewhere valid)
      * @param gameLayout the game Layout being played on
      * @param currentRoomString the current room, as a string
