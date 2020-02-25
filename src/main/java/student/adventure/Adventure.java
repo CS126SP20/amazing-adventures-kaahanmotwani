@@ -62,7 +62,6 @@ public class Adventure {
             }
         }
 
-        // the current room is the final room, the while loop has completed, and thus the game is over
         System.out.println("You've reached the final room, the game is over!");
     }
 
@@ -188,4 +187,8 @@ public class Adventure {
         }
         return false;
     }
+
+//    static void setOutputStream(ByteArrayOutputStream output) {
+//        output =
+//    }
 }

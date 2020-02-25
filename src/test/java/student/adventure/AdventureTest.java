@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -149,19 +150,41 @@ public class AdventureTest {
     }
 
     @Test
-    public void testExpectedSystemExit() {
+    public void testExpectedSystemExit() throws Exception {
         exit.expectSystemExitWithStatus(0);
         System.exit(0);
     }
 
     @Test
-    public void testForInputNotContainingGo() {
+    public void testForInputNotContainingGo() throws Exception {
         assertEquals(false, Adventure.containsGo("nope"));
     }
 
     @Test
-    public void testForInputContainingGo() {
+    public void testForInputContainingGo() throws Exception {
         assertEquals(true, Adventure.containsGo("go east"));
     }
 
+    @Test
+    public void testForGameOver() throws IOException {
+        File file = new File("src/main/resources/siebel.json");
+        Layout layout = new ObjectMapper().readValue(file, Layout.class);
+
+        assertEquals(true, Adventure.checkGameOver(layout, "Siebel1314"));
+    }
+
+    @Test
+    public void testForGameNotOver() throws IOException {
+        File file = new File("src/main/resources/siebel.json");
+        Layout layout = new ObjectMapper().readValue(file, Layout.class);
+
+        assertEquals(false, Adventure.checkGameOver(layout, "MatthewsStreet"));
+    }
+
+    @Test
+    public void testForCharactersBeforeGo() {
+        final ByteArrayInputStream inputStream = buildInputStream("blah blah");
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//        Assert.assertThat(outputStream, CoreMatchers.containsString("I don't understand blah blah"));
+    }
 }
