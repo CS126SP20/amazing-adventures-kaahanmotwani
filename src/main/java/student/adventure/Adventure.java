@@ -43,7 +43,7 @@ public class Adventure {
                     && !userAnswer.contains("remove ")) {
                 System.out.println("I don't understand '" + userAnswer + "'");
             } else {
-                if (addedOrRemovedItems(currentRoom, userAnswer)) {
+                if (triedToAddOrRemoveItem(currentRoom, userAnswer)) {
                     continue;
                 }
                 //calls on helper function to check if the room that they want to go to is valid
@@ -136,12 +136,20 @@ public class Adventure {
         return false;
     }
 
-    static boolean addedOrRemovedItems(Room currentRoom, String userAnswer) {
+    /**
+     *
+     * @param currentRoom
+     * @param userAnswer
+     * @return
+     */
+    static boolean triedToAddOrRemoveItem(Room currentRoom, String userAnswer) {
         String[] inputStrings = userAnswer.split(" ");
 
         for (String item : currentRoom.getItems()) {
+            //if they said add + something that doesn't already exist in the room at the time
+            //else if they said remove + something that exists in the room
             if (inputStrings[0].equalsIgnoreCase("add")
-                    && !(inputStrings[1].equalsIgnoreCase(item))) {
+                    && !(currentRoom.getItems().contains(inputStrings[1]))) {
                 List<String> items = currentRoom.getItems();
                 items.add(inputStrings[1]);
                 currentRoom.setItems(items);
@@ -153,6 +161,12 @@ public class Adventure {
                 currentRoom.setItems(items);
                 return true;
             }
+        }
+
+        if (inputStrings[0].equalsIgnoreCase("add")
+                || inputStrings[0].equalsIgnoreCase("remove")) {
+            System.out.println("I can't do that!");
+            return true;
         }
 
         return false;
