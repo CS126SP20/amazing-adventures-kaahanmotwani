@@ -170,7 +170,7 @@ public class Adventure {
         if (addOrRemove.equalsIgnoreCase("add")
                 || addOrRemove.equalsIgnoreCase("remove")) {
             System.out.println("I can't do that!");
-            return true;
+            return false;
         }
 
         return false;
