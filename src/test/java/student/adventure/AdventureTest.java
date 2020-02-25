@@ -29,11 +29,14 @@ public class AdventureTest {
     Room room1 = new Room();
     Room room2 = new Room();
 
+    /**
+     * Derived from: https://stackoverflow.com/questions/15990433/using-junit-on-code-that-terminates
+     */
     @Rule
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     /**
-     * Creates an object mapper to the Layout class, allowing tests to call methods from the class
+     * Before every test, creates an object mapper to the Layout class, allowing tests to call methods from the class;
      */
     @Before
     public void setUp() {
@@ -42,8 +45,6 @@ public class AdventureTest {
         } catch (IOException io) {
 
         }
-
-        // This is run before every test.
     }
 
     /**
@@ -69,13 +70,27 @@ public class AdventureTest {
         testRooms.add(room2);
     }
 
+    /**
+     * Converts a given string input into a ByteArrayInputStream
+     * @param input The String input
+     * @return A ByteArrayInputStream of the given String
+     */
+    public static ByteArrayInputStream buildInputStream(String input) {
+        return new ByteArrayInputStream(input.getBytes());
+    }
+
     @Test
-    public void testQuitOrExit() throws Exception {
-        Scanner consoleInput = new Scanner(System.in);
-        String userAnswer = consoleInput.nextLine();
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(userAnswer.getBytes());
-        //TODO: Use expected system exit to add testing for that
-//        assertEquals();
+    public void testQuit() throws Exception {
+        final ByteArrayInputStream inputStream = buildInputStream("quit");
+        exit.expectSystemExitWithStatus(0);
+        System.exit(0);
+    }
+
+    @Test
+    public void testExit() throws Exception {
+        final ByteArrayInputStream inputStream = buildInputStream("exit");
+        exit.expectSystemExitWithStatus(0);
+        System.exit(0);
     }
 
     @Test
@@ -133,6 +148,10 @@ public class AdventureTest {
         assertEquals(null, mapper.changeRoom("go east", "abcdef"));
     }
 
-//    @Test
-//    public void test
+    @Test
+    public void testExpectedSystemExit() {
+        exit.expectSystemExitWithStatus(0);
+        System.exit(0);
+    }
+
 }

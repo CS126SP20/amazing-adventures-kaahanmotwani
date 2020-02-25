@@ -19,7 +19,6 @@ public class Main {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-//        URL url = new URL("https://courses.grainger.illinois.edu/cs126/sp2020/resources/siebel.json");
         Layout layout = new Layout();
         File file;
         if (args == null || args.length == 0) {
@@ -39,9 +38,10 @@ public class Main {
     }
 
     /**
-     *
-     * @param userInput
-     * @return
+     * Checks if given the url is valid by using an HttpURLConnection.
+     * Used https://www.baeldung.com/java-check-url-exists#using-a-head-request as a resource
+     * @param userInput the user input url
+     * @return whether it's a valid url or not
      * @throws IOException
      */
     private static boolean isValidUrl(String userInput) throws IOException {
@@ -59,11 +59,11 @@ public class Main {
     }
 
     /**
-     *
-     * @return
+     * Creates an object mapper object based on the url being loaded
+     * @return a Layout object that can be used to start the game
      */
-    private static Layout parseUrlForJsonFile(String userInputUrl) throws IOException {
-        URL url = new URL(userInputUrl);
+    private static Layout parseUrlForJsonFile(String inputUrl) throws IOException {
+        URL url = new URL(inputUrl);
         Layout layout = new ObjectMapper().readValue(url, Layout.class);
         return layout;
     }
