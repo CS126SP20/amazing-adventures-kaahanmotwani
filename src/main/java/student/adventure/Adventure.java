@@ -27,17 +27,14 @@ public class Adventure {
         String currentRoomStr = gameLayout.getStartingRoom(); //string
         boolean isGameOver = (currentRoomStr.equals(gameLayout.getEndingRoom()));
         System.out.println("Instructions for commands: \nType in 'go (valid direction)' to go somewhere" +
-                "\nType in 'add (item)' to add an item to the room\nType in 'remove (item)' to remove an item from" +
+                "\nType in 'add (item)' and answer the puzzle to add an item to the room" +
+                "\nType in 'remove (item)' to remove an item from" +
                 " the room \nType in 'examine' to see the room's description and items available\n");
 
-        //while the current room is not the final room
+        //while the current room is not the final room, continue to allow user to play game
         while (!isGameOver) {
             Room currentRoom = getRoomObj(currentRoomStr, gameLayout.getRooms());
-            System.out.println(currentRoom.getDescription());
-            String directions = combineDirections(currentRoom.getDirections());
-            System.out.println("From here, you can go: " + directions);
-            String items = combineItems(currentRoom.getItems());
-            System.out.println("Items visible: " + items);
+            printRoomDescription(currentRoom);
             String userAnswer = consoleInput.nextLine();
 
             if (isCommandLessThanThreeCharacters(userAnswer)) {
@@ -218,6 +215,18 @@ public class Adventure {
             return true;
         }
         return false;
+    }
+
+    /**
+     * This method makes the code easier to read and prints the room's description, directions, and items
+     * @param currentRoom The current room the player is in
+     */
+    static void printRoomDescription(Room currentRoom) {
+        System.out.println(currentRoom.getDescription());
+        String directions = combineDirections(currentRoom.getDirections());
+        System.out.println("From here, you can go: " + directions);
+        String items = combineItems(currentRoom.getItems());
+        System.out.println("Items visible: " + items);
     }
 
 }
