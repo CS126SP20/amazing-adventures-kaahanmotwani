@@ -3,9 +3,11 @@ package student.adventure;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -15,6 +17,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import org.junit.contrib.java.lang.system.Assertion;
+import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
 
 public class AdventureTest {
@@ -24,6 +28,9 @@ public class AdventureTest {
     List<Room> testRooms;
     Room room1 = new Room();
     Room room2 = new Room();
+
+    @Rule
+    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     /**
      * Creates an object mapper to the Layout class, allowing tests to call methods from the class
@@ -126,4 +133,6 @@ public class AdventureTest {
         assertEquals(null, mapper.changeRoom("go east", "abcdef"));
     }
 
+//    @Test
+//    public void test
 }

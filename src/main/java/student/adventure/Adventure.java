@@ -145,16 +145,18 @@ public class Adventure {
     static boolean triedToAddOrRemoveItem(Room currentRoom, String userAnswer) {
         String[] inputStrings = userAnswer.split(" ");
 
+        //if they said add + something that doesn't already exist in the room at the time
+        if (inputStrings[0].equalsIgnoreCase("add")
+                && !(currentRoom.getItems().contains(inputStrings[1]))) {
+            List<String> items = currentRoom.getItems();
+            items.add(inputStrings[1]);
+            currentRoom.setItems(items);
+            return true;
+        }
+
         for (String item : currentRoom.getItems()) {
-            //if they said add + something that doesn't already exist in the room at the time
-            //else if they said remove + something that exists in the room
-            if (inputStrings[0].equalsIgnoreCase("add")
-                    && !(currentRoom.getItems().contains(inputStrings[1]))) {
-                List<String> items = currentRoom.getItems();
-                items.add(inputStrings[1]);
-                currentRoom.setItems(items);
-                return true;
-            } else if (inputStrings[0].equalsIgnoreCase("remove")
+            //if they said remove + something that exists in the room
+             if (inputStrings[0].equalsIgnoreCase("remove")
                     && inputStrings[1].equalsIgnoreCase(item)) {
                 List<String> items = currentRoom.getItems();
                 items.remove(item);
