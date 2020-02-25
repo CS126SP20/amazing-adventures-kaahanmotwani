@@ -183,32 +183,35 @@ public class AdventureTest {
 
     @Test
     public void testForAddExistingItem() throws IOException {
-        assertEquals(false, Adventure.triedToAddOrRemoveItem(mapper.getRooms().get(2),
+        assertEquals(false, Adventure.addedOrRemovedItem(mapper.getRooms().get(2),
                 "add pizza"));
     }
 
     @Test
     public void testForAddNonExistingItem() throws IOException {
-        assertEquals(true, Adventure.triedToAddOrRemoveItem(mapper.getRooms().get(4),
+        assertEquals(true, Adventure.addedOrRemovedItem(mapper.getRooms().get(4),
                 "ADD GRADING RUBRIC"));
     }
 
     @Test
     public void testForRemoveExistingItem() throws IOException {
-        assertEquals(true, Adventure.triedToAddOrRemoveItem(mapper.getRooms().get(4),
+        assertEquals(true, Adventure.addedOrRemovedItem(mapper.getRooms().get(4),
                 "rEmove usb-C connector"));
     }
 
     @Test
     public void testForRemoveNonExistingItem() throws IOException {
-        assertEquals(false, Adventure.triedToAddOrRemoveItem(mapper.getRooms().get(4),
+        assertEquals(false, Adventure.addedOrRemovedItem(mapper.getRooms().get(4),
                 "remove rocks"));
     }
 
     @Test
-    public void testForCharactersBeforeGo() {
-        final ByteArrayInputStream inputStream = buildInputStream("blah blah");
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-//        Assert.assertThat(outputStream, CoreMatchers.containsString("I don't understand blah blah"));
+    public void testForBadUserInput() throws Exception {
+        Assert.assertEquals(true, Adventure.isCommandInvalid("blah blah"));
+    }
+
+    @Test
+    public void testForGoInSameWord() {
+        Assert.assertEquals(true, Adventure.isCommandInvalid("goal east"));
     }
 }

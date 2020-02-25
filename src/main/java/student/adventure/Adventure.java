@@ -39,11 +39,10 @@ public class Adventure {
             } else if (userAnswer.equalsIgnoreCase("examine")) {
                 //this will exit this iteration of the loop and print out the description of the room
                 continue;
-            } else if (!(containsGo(userAnswer)) && !userAnswer.contains("add ")
-                    && !userAnswer.contains("remove ")) {
+            } else if (isCommandInvalid(userAnswer)) {
                 System.out.println("I don't understand '" + userAnswer + "'");
             } else {
-                if (triedToAddOrRemoveItem(currentRoom, userAnswer)) {
+                if (addedOrRemovedItem(currentRoom, userAnswer)) {
                     continue;
                 }
                 //calls on helper function to check if the room that they want to go to is valid
@@ -137,11 +136,11 @@ public class Adventure {
 
     /**
      *
-     * @param currentRoom
-     * @param userAnswer
+     * @param currentRoom the current room, as a Room object
+     * @param userAnswer the user's input into the console
      * @return
      */
-    static boolean triedToAddOrRemoveItem(Room currentRoom, String userAnswer) {
+    static boolean addedOrRemovedItem(Room currentRoom, String userAnswer) {
         String addOrRemove = userAnswer.substring(0, userAnswer.indexOf(" "));
         String userItemChoice = userAnswer.substring(userAnswer.indexOf(" ") + 1);
 
@@ -149,7 +148,7 @@ public class Adventure {
             return false;
         } else if (addOrRemove.equalsIgnoreCase("add")
                 && !(currentRoom.getItems().contains(userItemChoice))) {
-            //if they said add + something that doesn't already exist in the room at the time
+            //if they said add + (item) that doesn't already exist in the room at the time
             List<String> items = currentRoom.getItems();
             items.add(userItemChoice);
             currentRoom.setItems(items);
@@ -157,7 +156,7 @@ public class Adventure {
         }
 
         for (String item : currentRoom.getItems()) {
-            //if they said remove + something that exists in the room
+            //if they said remove + (item) that exists in the room
              if (addOrRemove.equalsIgnoreCase("remove")
                     && userItemChoice.equalsIgnoreCase(item)) {
                 List<String> items = currentRoom.getItems();
@@ -183,6 +182,19 @@ public class Adventure {
      */
     static boolean containsGo(String userAnswer) {
         if (userAnswer.toLowerCase().contains("go ")) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the user input is invalid (contains add, remove or go); easier for testing too
+     * @param userAnswer the user input into the console
+     * @return if the input is invalid
+     */
+    static boolean isCommandInvalid(String userAnswer) {
+        if (!(containsGo(userAnswer)) && !userAnswer.contains("add ")
+                && !userAnswer.contains("remove ")) {
             return true;
         }
         return false;
