@@ -214,4 +214,14 @@ public class AdventureTest {
     public void testForGoInSameWord() {
         Assert.assertEquals(true, Adventure.isCommandInvalid("goal east"));
     }
+
+    @Test
+    public void testForPhraseWithGo() {
+        Assert.assertEquals(true, Adventure.isCommandInvalid("I want to go east"));
+    }
+
+    @Test
+    public void testForInputLessThanThreeCharacters() {
+        Assert.assertEquals(true, Adventure.isCommandLessThanThreeCharacters("g"));
+    }
 }

@@ -1,11 +1,18 @@
 package student.adventure;
 
+//import sun.security.util.Length;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Adventure {
+
+    /**
+     * Length of the string "go "
+     */
+    private static final int LENGTH_OF_GO = 3;
 
     /**
      * As long as the player has not reached the final room, the game continues
@@ -19,7 +26,6 @@ public class Adventure {
         Scanner consoleInput = new Scanner(System.in);
         String currentRoomStr = gameLayout.getStartingRoom(); //string
         boolean isGameOver = (currentRoomStr.equals(gameLayout.getEndingRoom()));
-        final int LENGTH_OF_GO = 3;
         System.out.println("Instructions for commands: \nType in 'go (valid direction)' to go somewhere" +
                 "\nType in 'add (item)' to add an item to the room\nType in 'remove (item)' to remove an item from" +
                 " the room \nType in 'examine' to see the room's description and items available\n");
@@ -34,7 +40,9 @@ public class Adventure {
             System.out.println("Items visible: " + items);
             String userAnswer = consoleInput.nextLine();
 
-            if (userAnswer.equals("quit") || userAnswer.equals("exit")) {
+            if (isCommandLessThanThreeCharacters(userAnswer)) {
+                System.out.println("I don't understand '" + userAnswer + "'");
+            } else if (userAnswer.equals("quit") || userAnswer.equals("exit")) {
                 System.exit(0);
             } else if (userAnswer.equalsIgnoreCase("examine")) {
                 //this will exit this iteration of the loop and print out the description of the room
@@ -193,14 +201,23 @@ public class Adventure {
      * @return if the input is invalid
      */
     static boolean isCommandInvalid(String userAnswer) {
-        if (!(containsGo(userAnswer)) && !userAnswer.contains("add ")
+        if (!(containsGo(userAnswer.substring(0, LENGTH_OF_GO))) && !userAnswer.contains("add ")
                 && !userAnswer.contains("remove ")) {
             return true;
         }
         return false;
     }
 
-//    static void setOutputStream(ByteArrayOutputStream output) {
-//        output =
-//    }
+    /**
+     * Checks if the user input is less than three characters (invalid argument); also makes it easier to test
+     * @param userAnswer the user input into the console
+     * @return if the input is less than three characters
+     */
+    static boolean isCommandLessThanThreeCharacters(String userAnswer) {
+        if (userAnswer.length() < LENGTH_OF_GO) {
+            return true;
+        }
+        return false;
+    }
+
 }
