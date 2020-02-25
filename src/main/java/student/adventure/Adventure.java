@@ -39,7 +39,7 @@ public class Adventure {
             } else if (userAnswer.equalsIgnoreCase("examine")) {
                 //this will exit this iteration of the loop and print out the description of the room
                 continue;
-            } else if (!userAnswer.contains("go ") && !userAnswer.contains("add ")
+            } else if (!(containsGo(userAnswer)) && !userAnswer.contains("add ")
                     && !userAnswer.contains("remove ")) {
                 System.out.println("I don't understand '" + userAnswer + "'");
             } else {
@@ -55,7 +55,7 @@ public class Adventure {
                     //changes the current room string to where they'd like to go and updates isGameOver
                     currentRoomStr = gameLayout.changeRoom(userAnswer, currentRoomStr);
                     isGameOver = checkGameOver(gameLayout, currentRoomStr);
-                } else if (userAnswer.substring(0, LENGTH_OF_GO).equalsIgnoreCase("go ")) {
+                } else if (containsGo(userAnswer.substring(0, LENGTH_OF_GO))) {
                     //if they typed in somewhere they can't go
                     System.out.println("I can't " + userAnswer);
                 }
@@ -111,7 +111,7 @@ public class Adventure {
      */
     static String combineItems(List<String> itemsList) {
         if (itemsList == null || itemsList.size() == 0) {
-            return null;
+            return "";
         }
 
         StringBuilder returned = new StringBuilder("");
@@ -177,5 +177,15 @@ public class Adventure {
         return false;
     }
 
-
+    /**
+     * Checks for if a string contains go; makes code easier to test and read
+     * @param userAnswer the user input into the console
+     * @return whether a string contains go or not
+     */
+    static boolean containsGo(String userAnswer) {
+        if (userAnswer.toLowerCase().contains("go ")) {
+            return true;
+        }
+        return false;
+    }
 }

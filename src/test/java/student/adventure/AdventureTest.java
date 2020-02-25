@@ -154,4 +154,14 @@ public class AdventureTest {
         System.exit(0);
     }
 
+    @Test
+    public void testForInputNotContainingGo() {
+        assertEquals(false, Adventure.containsGo("nope"));
+    }
+
+    @Test
+    public void testForInputContainingGo() {
+        assertEquals(true, Adventure.containsGo("go east"));
+    }
+
 }
