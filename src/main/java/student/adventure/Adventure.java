@@ -143,21 +143,24 @@ public class Adventure {
      * @return
      */
     static boolean triedToAddOrRemoveItem(Room currentRoom, String userAnswer) {
-        String[] inputStrings = userAnswer.split(" ");
+        String addOrRemove = userAnswer.substring(0, userAnswer.indexOf(" "));
+        String userItemChoice = userAnswer.substring(userAnswer.indexOf(" ") + 1);
 
-        //if they said add + something that doesn't already exist in the room at the time
-        if (inputStrings[0].equalsIgnoreCase("add")
-                && !(currentRoom.getItems().contains(inputStrings[1]))) {
+        if (currentRoom.getItems() == null) {
+            return false;
+        } else if (addOrRemove.equalsIgnoreCase("add")
+                && !(currentRoom.getItems().contains(userItemChoice))) {
+            //if they said add + something that doesn't already exist in the room at the time
             List<String> items = currentRoom.getItems();
-            items.add(inputStrings[1]);
+            items.add(userItemChoice);
             currentRoom.setItems(items);
             return true;
         }
 
         for (String item : currentRoom.getItems()) {
             //if they said remove + something that exists in the room
-             if (inputStrings[0].equalsIgnoreCase("remove")
-                    && inputStrings[1].equalsIgnoreCase(item)) {
+             if (addOrRemove.equalsIgnoreCase("remove")
+                    && userItemChoice.equalsIgnoreCase(item)) {
                 List<String> items = currentRoom.getItems();
                 items.remove(item);
                 currentRoom.setItems(items);
@@ -165,8 +168,8 @@ public class Adventure {
             }
         }
 
-        if (inputStrings[0].equalsIgnoreCase("add")
-                || inputStrings[0].equalsIgnoreCase("remove")) {
+        if (addOrRemove.equalsIgnoreCase("add")
+                || addOrRemove.equalsIgnoreCase("remove")) {
             System.out.println("I can't do that!");
             return true;
         }
