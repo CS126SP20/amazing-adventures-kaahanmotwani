@@ -1,0 +1,97 @@
+{
+  "startingRoom": "GregoryStreet",
+  "endingRoom": "WestonHall",
+  "rooms": [
+    {
+      "name": "GregoryStreet",
+      "description": "You are on Gregory, outside the SDRP. Here is a puzzle: Illinois Fighting ______",
+      "items": ["coin"],
+      "directions": [
+        {
+          "directionName": "South",
+          "room": "SDRPEntry"
+        }
+      ]
+    },
+    {
+      "name": "SDRPEntry",
+      "description": "You are in the north entry of the SDRP. You can see the staircase, the 57 North, and a hallway to the north. Here is a puzzle: What is the last name of the person the CS building is named after?",
+	  "items": ["sweatshirt", "key"],
+      "directions": [
+        {
+          "directionName": "West",
+          "room": "57North"
+        },
+        {
+          "directionName": "South",
+          "room": "Staircase"
+        },
+        {
+          "directionName": "Southwest",
+          "room": "SDRPSouthHallway"
+        }
+      ]
+    },
+    {
+      "name": "57North",
+      "description": "You are in the 57 North.  There is lots of junk food. Here is a puzzle: ",
+      "items": ["pizza", "swag"],
+      "directions": [
+        {
+          "directionName": "East",
+          "room": "SDRPEntry"
+        }
+      ]
+    },
+    {
+      "name": "SDRPSouthHallway",
+      "description": "You are in the south hallway.  You can see the dining center and the door towards the dorms. Here is a puzzle: ",
+      "directions": [
+        {
+          "directionName": "South",
+          "room": "SDRPExit"
+        },
+        {
+          "directionName": "West",
+          "room": "DiningCenter"
+        }
+      ]
+    },
+    {
+      "name": "DiningCenter",
+      "description": "You are in the dining center.  There are lots of students and unlimited food. Here is a puzzle: ",
+      "items": ["spoon", "plate"],
+      "directions": [
+        {
+          "directionName": "East",
+          "room": "SDRPSouthHallway"
+        }
+      ]
+    },
+    {
+      "name": "SDRPExit",
+      "description": "You are in the SDRP Exit.  You can see Weston Hall and the SDRP. Here is a puzzle: ",
+      "items": ["paper", "coffee"],
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "SDRPSouthHallway"
+        },
+        {
+          "directionName": "South",
+          "room": "WestonHall"
+        }
+      ]
+    },
+    {
+      "name": "WestonHall",
+      "description": "You are in Weston Hall!",
+      "directions": [
+        {
+          "directionName": "North",
+          "room": "SDRPExit"
+        }
+      ]
+    }
+  ]
+}

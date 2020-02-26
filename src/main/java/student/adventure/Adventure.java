@@ -3,9 +3,7 @@ package student.adventure;
 //import sun.security.util.Length;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Adventure {
 
@@ -13,6 +11,21 @@ public class Adventure {
      * Length of the string "go "
      */
     private static final int LENGTH_OF_GO = 3;
+
+    /**
+     * Nanoseconds are seconds*10e-9
+     */
+    private static final int NANOSECONDS_TO_SECONDS = 1000000000;
+
+    /**
+     * The time, in seconds, the user has to play
+     */
+    private static final int TIME_TO_PLAY = 60;
+
+    /**
+     *
+     */
+    private static Map<Room, String> roomToAnswerMap = new HashMap<>();
 
     /**
      * As long as the player has not reached the final room, the game continues
@@ -26,7 +39,9 @@ public class Adventure {
         Scanner consoleInput = new Scanner(System.in);
         String currentRoomStr = gameLayout.getStartingRoom(); //string
         boolean isGameOver = (currentRoomStr.equals(gameLayout.getEndingRoom()));
-        System.out.println("Instructions for commands: \nType in 'go (valid direction)' to go somewhere" +
+        long startTime = System.nanoTime();
+        System.out.println("Instructions for commands: \nType in 'go (valid direction)' " +
+                "and answer the puzzle to go somewhere" +
                 "\nType in 'add (item)' and answer the puzzle to add an item to the room" +
                 "\nType in 'remove (item)' to remove an item from" +
                 " the room \nType in 'examine' to see the room's description and items available\n");
@@ -36,7 +51,15 @@ public class Adventure {
             Room currentRoom = getRoomObj(currentRoomStr, gameLayout.getRooms());
             printRoomDescription(currentRoom);
             String userAnswer = consoleInput.nextLine();
+            long currentTime = System.nanoTime();
 
+            //if one minute has elapsed, then the game is over! (One of my extensions)
+            //Code from: https://stackoverflow.com/questions/180158/how-do-i-time-a-methods-execution-in-java
+            if ((currentTime - startTime)/NANOSECONDS_TO_SECONDS > TIME_TO_PLAY) {
+                System.out.println("Time is up!");
+                System.exit(0);
+            }
+            
             if (isCommandLessThanThreeCharacters(userAnswer)) {
                 System.out.println("I don't understand '" + userAnswer + "'");
             } else if (userAnswer.equals("quit") || userAnswer.equals("exit")) {
@@ -65,6 +88,9 @@ public class Adventure {
                 }
             }
         }
+
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime);
 
         System.out.println("You've reached the final room, the game is over!");
     }
@@ -229,4 +255,13 @@ public class Adventure {
         System.out.println("Items visible: " + items);
     }
 
+    static void mapRoomToAnswer(Layout gameLayout) {
+        for (Room room : gameLayout.getRooms()) {
+            roomToAnswerMap.put(room, "answer");
+        }
+    }
+
+//    static boolean passedPuzzle(String userAnswer) {
+//
+//    }
 }
