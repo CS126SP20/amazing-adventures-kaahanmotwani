@@ -75,6 +75,17 @@
         },
         {
           "directionName": "South",
+          "room": "Sidewalk"
+        }
+      ]
+    },
+    {
+      "name": "Sidewalk",
+      "description": "You are on the sidewalk, you see Weston. What is 2+2?",
+      "items": ["toys"],
+      "directions": [
+        {
+          "directionName": "South",
           "room": "WestonHall"
         }
       ]

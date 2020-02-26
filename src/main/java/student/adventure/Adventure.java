@@ -271,7 +271,7 @@ public class Adventure {
      */
     static void mapRoomToAnswer(Layout gameLayout) {
         List<String> answers =
-                new ArrayList<>(Arrays.asList("Illini", "Siebel", "57 North", "2007", "UIUC", "Microsoft"));
+                new ArrayList<>(Arrays.asList("Illini", "Siebel", "57 North", "2007", "UIUC", "Microsoft", "4"));
         for (int i = 0; i < gameLayout.getRooms().size() - 1; i++) {
             roomToAnswerMap.put(gameLayout.getRooms().get(i), answers.get(i));
         }
