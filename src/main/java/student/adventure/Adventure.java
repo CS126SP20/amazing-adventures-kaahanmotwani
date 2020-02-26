@@ -39,9 +39,9 @@ public class Adventure {
         long startTime = System.nanoTime();
         mapRoomToAnswer(gameLayout);
         System.out.println("Instructions for commands: You must answer " +
-                "the puzzle to use any of the following commands!" +
+                "the puzzle to use any of the following commands! \nYou get two minutes to play the game!" +
                 " \nType in 'go (valid direction)' to go somewhere" +
-                "\nType in 'add (item)' and answer the puzzle to add an item to the room" +
+                "\nType in 'add (item)' to add an item to the room" +
                 "\nType in 'remove (item)' to remove an item from" +
                 " the room \nType in 'examine' to see the room's description and items available\n");
 
