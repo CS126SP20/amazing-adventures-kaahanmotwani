@@ -23,7 +23,7 @@ public class Adventure {
     private static final int TIME_TO_PLAY = 60;
 
     /**
-     *
+     * A map of the rooms to Strings of the answers to the respective questions asked for the rooms
      */
     private static Map<Room, String> roomToAnswerMap = new HashMap<>();
 
@@ -40,6 +40,7 @@ public class Adventure {
         String currentRoomStr = gameLayout.getStartingRoom(); //string
         boolean isGameOver = (currentRoomStr.equals(gameLayout.getEndingRoom()));
         long startTime = System.nanoTime();
+        mapRoomToAnswer(gameLayout);
         System.out.println("Instructions for commands: \nType in 'go (valid direction)' " +
                 "and answer the puzzle to go somewhere" +
                 "\nType in 'add (item)' and answer the puzzle to add an item to the room" +
@@ -52,41 +53,47 @@ public class Adventure {
             printRoomDescription(currentRoom);
             String userAnswer = consoleInput.nextLine();
             long currentTime = System.nanoTime();
-
+            long timeElapsed = (currentTime - startTime)/NANOSECONDS_TO_SECONDS;
             //if one minute has elapsed, then the game is over! (One of my extensions)
             //Code from: https://stackoverflow.com/questions/180158/how-do-i-time-a-methods-execution-in-java
-            if ((currentTime - startTime)/NANOSECONDS_TO_SECONDS > TIME_TO_PLAY) {
+            if (timeElapsed > TIME_TO_PLAY) {
                 System.out.println("Time is up!");
                 System.exit(0);
             }
-            
-            if (isCommandLessThanThreeCharacters(userAnswer)) {
-                System.out.println("I don't understand '" + userAnswer + "'");
-            } else if (userAnswer.equals("quit") || userAnswer.equals("exit")) {
-                System.exit(0);
-            } else if (userAnswer.equalsIgnoreCase("examine")) {
-                //this will exit this iteration of the loop and print out the description of the room
-                continue;
-            } else if (isCommandInvalid(userAnswer)) {
-                System.out.println("I don't understand '" + userAnswer + "'");
-            } else {
-                if (addedOrRemovedItem(currentRoom, userAnswer)) {
-                    continue;
-                }
-                //calls on helper function to check if the room that they want to go to is valid
-                boolean isValid = gameLayout.isGivenRoomValid(userAnswer, currentRoomStr);
 
-                // if they typed in a valid command
-                if (isValid && userAnswer.substring(0, LENGTH_OF_GO).equalsIgnoreCase("go ")) {
-                    userAnswer = userAnswer.toLowerCase();
-                    //changes the current room string to where they'd like to go and updates isGameOver
-                    currentRoomStr = gameLayout.changeRoom(userAnswer, currentRoomStr);
-                    isGameOver = checkGameOver(gameLayout, currentRoomStr);
-                } else if (containsGo(userAnswer.substring(0, LENGTH_OF_GO))) {
-                    //if they typed in somewhere they can't go
-                    System.out.println("I can't " + userAnswer);
+            if (passedPuzzle(userAnswer, currentRoom)) {
+                System.out.println("correct! Choose where you want to go.");
+                userAnswer = consoleInput.nextLine();
+                if (isCommandLessThanThreeCharacters(userAnswer)) {
+                    System.out.println("I don't understand '" + userAnswer + "'");
+                } else if (userAnswer.equals("quit") || userAnswer.equals("exit")) {
+                    System.exit(0);
+                } else if (userAnswer.equalsIgnoreCase("examine")) {
+                    //this will exit this iteration of the loop and print out the description of the room
+                    continue;
+                } else if (isCommandInvalid(userAnswer)) {
+                    System.out.println("I don't understand '" + userAnswer + "'");
+                } else {
+                    if (addedOrRemovedItem(currentRoom, userAnswer)) {
+                        continue;
+                    }
+                    //calls on helper function to check if the room that they want to go to is valid
+                    boolean isValid = gameLayout.isGivenRoomValid(userAnswer, currentRoomStr);
+
+                    // if they typed in a valid command
+                    if (isValid && userAnswer.substring(0, LENGTH_OF_GO).equalsIgnoreCase("go ")) {
+                        userAnswer = userAnswer.toLowerCase();
+                        //changes the current room string to where they'd like to go and updates isGameOver
+                        currentRoomStr = gameLayout.changeRoom(userAnswer, currentRoomStr);
+                        isGameOver = checkGameOver(gameLayout, currentRoomStr);
+                    } else if (containsGo(userAnswer.substring(0, LENGTH_OF_GO))) {
+                        //if they typed in somewhere they can't go
+                        System.out.println("I can't " + userAnswer);
+                    }
                 }
             }
+
+
         }
 
         long endTime = System.nanoTime();
@@ -154,6 +161,7 @@ public class Adventure {
     /**
      * Checks if the game is over by checking if the current room is the ending room (used every time the user goes
      * somewhere valid)
+     *
      * @param gameLayout the game Layout being played on
      * @param currentRoomString the current room, as a string
      * @return whether the game is over or not
@@ -166,10 +174,11 @@ public class Adventure {
     }
 
     /**
+     * Checks if the user added or removed an item
      *
      * @param currentRoom the current room, as a Room object
      * @param userAnswer the user's input into the console
-     * @return
+     * @return if the user added or removed an item
      */
     static boolean addedOrRemovedItem(Room currentRoom, String userAnswer) {
         String addOrRemove = userAnswer.substring(0, userAnswer.indexOf(" "));
@@ -208,6 +217,7 @@ public class Adventure {
 
     /**
      * Checks for if a string contains go; makes code easier to test and read
+     *
      * @param userAnswer the user input into the console
      * @return whether a string contains go or not
      */
@@ -220,6 +230,7 @@ public class Adventure {
 
     /**
      * Checks if the user input is invalid (contains add, remove or go); easier for testing too
+     *
      * @param userAnswer the user input into the console
      * @return if the input is invalid
      */
@@ -233,6 +244,7 @@ public class Adventure {
 
     /**
      * Checks if the user input is less than three characters (invalid argument); also makes it easier to test
+     *
      * @param userAnswer the user input into the console
      * @return if the input is less than three characters
      */
@@ -245,6 +257,7 @@ public class Adventure {
 
     /**
      * This method makes the code easier to read and prints the room's description, directions, and items
+     *
      * @param currentRoom The current room the player is in
      */
     static void printRoomDescription(Room currentRoom) {
@@ -255,13 +268,30 @@ public class Adventure {
         System.out.println("Items visible: " + items);
     }
 
+    /**
+     * Maps room objects to String answers to the trivia questions for the roomToAnswerMap instance variable
+     *
+     * @param gameLayout the current game layout
+     */
     static void mapRoomToAnswer(Layout gameLayout) {
-        for (Room room : gameLayout.getRooms()) {
-            roomToAnswerMap.put(room, "answer");
+        List<String> answers =
+                new ArrayList<>(Arrays.asList("Illini", "Siebel", "57 North", "2007", "UIUC", "Microsoft"));
+        for (int i = 0; i < gameLayout.getRooms().size() - 1; i++) {
+            roomToAnswerMap.put(gameLayout.getRooms().get(i), answers.get(i));
         }
     }
 
-//    static boolean passedPuzzle(String userAnswer) {
-//
-//    }
+    /**
+     * checks if they passed the given puzzle by checking the roomToAnswerMap
+     *
+     * @param userAnswer the user's answer in the console
+     * @param currentRoom the current room they are in
+     * @return whether they passed the puzzle or not
+     */
+    static boolean passedPuzzle(String userAnswer, Room currentRoom) {
+        if (roomToAnswerMap.get(currentRoom).equalsIgnoreCase(userAnswer)) {
+            return true;
+        }
+        return false;
+    }
 }

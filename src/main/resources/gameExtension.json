@@ -15,16 +15,12 @@
     },
     {
       "name": "SDRPEntry",
-      "description": "You are in the north entry of the SDRP. You can see the staircase, the 57 North, and a hallway to the north. Here is a puzzle: What is the last name of the person the CS building is named after?",
+      "description": "You are in the north entry of the SDRP. You can see the 57 North, and a hallway to the north. Here is a puzzle: What is the last name of the person the CS building is named after?",
 	  "items": ["sweatshirt", "key"],
       "directions": [
         {
           "directionName": "West",
           "room": "57North"
-        },
-        {
-          "directionName": "South",
-          "room": "Staircase"
         },
         {
           "directionName": "Southwest",
@@ -34,7 +30,7 @@
     },
     {
       "name": "57North",
-      "description": "You are in the 57 North.  There is lots of junk food. Here is a puzzle: ",
+      "description": "You are at the 57 North.  There is lots of junk food. Here is a puzzle: Where are you?",
       "items": ["pizza", "swag"],
       "directions": [
         {
@@ -45,7 +41,7 @@
     },
     {
       "name": "SDRPSouthHallway",
-      "description": "You are in the south hallway.  You can see the dining center and the door towards the dorms. Here is a puzzle: ",
+      "description": "You are in the south hallway.  You can see the dining center and the door towards the dorms. Here is a puzzle: What year was the very first model of the iPhone released?",
       "directions": [
         {
           "directionName": "South",
@@ -59,7 +55,7 @@
     },
     {
       "name": "DiningCenter",
-      "description": "You are in the dining center.  There are lots of students and unlimited food. Here is a puzzle: ",
+      "description": "You are in the dining center.  There are lots of students and unlimited food. Here is a puzzle: What is our university commonly abbreviated as? (4 letters)",
       "items": ["spoon", "plate"],
       "directions": [
         {
@@ -70,7 +66,7 @@
     },
     {
       "name": "SDRPExit",
-      "description": "You are in the SDRP Exit.  You can see Weston Hall and the SDRP. Here is a puzzle: ",
+      "description": "You are in the SDRP Exit.  You can see Weston Hall and the SDRP. Here is a puzzle: Which company owns ‘Hotmail’, the Internet based e-mail system?",
       "items": ["paper", "coffee"],
       "directions": [
         {
