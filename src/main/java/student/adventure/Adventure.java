@@ -38,7 +38,8 @@ public class Adventure {
         boolean isGameOver = (currentRoomStr.equals(gameLayout.getEndingRoom()));
         long startTime = System.nanoTime();
         mapRoomToAnswer(gameLayout);
-        System.out.println("Instructions for commands: You must answer the puzzle to use any of the following commands!" +
+        System.out.println("Instructions for commands: You must answer " +
+                "the puzzle to use any of the following commands!" +
                 " \nType in 'go (valid direction)' to go somewhere" +
                 "\nType in 'add (item)' and answer the puzzle to add an item to the room" +
                 "\nType in 'remove (item)' to remove an item from" +
@@ -51,6 +52,7 @@ public class Adventure {
             String userAnswer = consoleInput.nextLine();
             long currentTime = System.nanoTime();
             long timeElapsed = (currentTime - startTime)/NANOSECONDS_TO_SECONDS;
+
             //if two minutes has elapsed, then the game is over! (One of my extensions)
             //Code from: https://stackoverflow.com/questions/180158/how-do-i-time-a-methods-execution-in-java
             if (timeElapsed > TIME_TO_PLAY) {
@@ -91,12 +93,7 @@ public class Adventure {
             } else {
                 System.out.println("Wrong! Try again.");
             }
-
-
         }
-
-        long endTime = System.nanoTime();
-        long duration = (endTime - startTime);
 
         System.out.println("You've reached the final room, the game is over!");
     }

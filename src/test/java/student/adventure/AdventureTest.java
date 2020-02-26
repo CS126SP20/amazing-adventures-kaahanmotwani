@@ -1,8 +1,5 @@
 package student.adventure;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.CoreMatchers;
@@ -20,6 +17,8 @@ import java.util.List;
 import java.util.Scanner;
 import org.junit.contrib.java.lang.system.Assertion;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
+
+import static org.junit.Assert.*;
 
 
 public class AdventureTest {
@@ -102,13 +101,13 @@ public class AdventureTest {
 
     @Test
     public void testCombineDirectionsForNull() throws Exception {
-        assertEquals(null, Adventure.combineDirections(null));
+        assertNull(Adventure.combineDirections(null));
     }
 
     @Test
     public void testCombineDirectionsForEmpty() throws Exception {
         List<Direction> empty = new ArrayList<Direction>();
-        assertEquals(null, Adventure.combineDirections(empty));
+        assertNull(Adventure.combineDirections(empty));
     }
 
     @Test
@@ -120,22 +119,22 @@ public class AdventureTest {
     @Test
     public void testGetRoomForNull() throws Exception {
         makeRoomList();
-        assertEquals(null, Adventure.getRoomObj("not a room", testRooms));
+        assertNull(Adventure.getRoomObj("not a room", testRooms));
     }
 
     @Test
     public void testIsGivenRoomDirectionValid() throws Exception {
-        assertEquals(true, mapper.isGivenRoomValid("go west", "SiebelEntry"));
+        assertTrue(mapper.isGivenRoomValid("go west", "SiebelEntry"));
     }
 
     @Test
     public void testIsGivenRoomValidForWrongDirection() throws Exception {
-        assertEquals(false, mapper.isGivenRoomValid("go south", "SiebelEntry"));
+        assertFalse(mapper.isGivenRoomValid("go south", "SiebelEntry"));
     }
 
     @Test
     public void testIsGivenRoomInvalid() throws Exception {
-        assertEquals(false, mapper.isGivenRoomValid("go west", "blah blah"));
+        assertFalse(mapper.isGivenRoomValid("go west", "blah blah"));
     }
 
     @Test
@@ -146,7 +145,7 @@ public class AdventureTest {
 
     @Test
     public void testChangeRoomForInvalidRoom() throws Exception {
-        assertEquals(null, mapper.changeRoom("go east", "abcdef"));
+        assertNull(mapper.changeRoom("go east", "abcdef"));
     }
 
     @Test
@@ -157,12 +156,12 @@ public class AdventureTest {
 
     @Test
     public void testForInputNotContainingGo() throws Exception {
-        assertEquals(false, Adventure.containsGo("nope"));
+        assertFalse(Adventure.containsGo("nope"));
     }
 
     @Test
     public void testForInputContainingGo() throws Exception {
-        assertEquals(true, Adventure.containsGo("go east"));
+        assertTrue(Adventure.containsGo("go east"));
     }
 
     @Test
@@ -170,7 +169,7 @@ public class AdventureTest {
         File file = new File("src/main/resources/siebel.json");
         Layout layout = new ObjectMapper().readValue(file, Layout.class);
 
-        assertEquals(true, Adventure.checkGameOver(layout, "Siebel1314"));
+        assertTrue(Adventure.checkGameOver(layout, "Siebel1314"));
     }
 
     @Test
@@ -178,50 +177,67 @@ public class AdventureTest {
         File file = new File("src/main/resources/siebel.json");
         Layout layout = new ObjectMapper().readValue(file, Layout.class);
 
-        assertEquals(false, Adventure.checkGameOver(layout, "MatthewsStreet"));
+        assertFalse(Adventure.checkGameOver(layout, "MatthewsStreet"));
     }
 
     @Test
     public void testForAddExistingItem() throws IOException {
-        assertEquals(false, Adventure.addedOrRemovedItem(mapper.getRooms().get(2),
+        assertFalse(Adventure.addedOrRemovedItem(mapper.getRooms().get(2),
                 "add pizza"));
     }
 
     @Test
     public void testForAddNonExistingItem() throws IOException {
-        assertEquals(true, Adventure.addedOrRemovedItem(mapper.getRooms().get(4),
+        assertTrue(Adventure.addedOrRemovedItem(mapper.getRooms().get(4),
                 "ADD GRADING RUBRIC"));
     }
 
     @Test
     public void testForRemoveExistingItem() throws IOException {
-        assertEquals(true, Adventure.addedOrRemovedItem(mapper.getRooms().get(4),
+        assertTrue(Adventure.addedOrRemovedItem(mapper.getRooms().get(4),
                 "rEmove usb-C connector"));
     }
 
     @Test
     public void testForRemoveNonExistingItem() throws IOException {
-        assertEquals(false, Adventure.addedOrRemovedItem(mapper.getRooms().get(4),
+        assertFalse(Adventure.addedOrRemovedItem(mapper.getRooms().get(4),
                 "remove rocks"));
     }
 
     @Test
     public void testForBadUserInput() throws Exception {
-        Assert.assertEquals(true, Adventure.isCommandInvalid("blah blah"));
+        Assert.assertTrue(Adventure.isCommandInvalid("blah blah"));
     }
 
     @Test
-    public void testForGoInSameWord() {
-        Assert.assertEquals(true, Adventure.isCommandInvalid("goal east"));
+    public void testForGoInSameWord() throws Exception {
+        Assert.assertTrue(Adventure.isCommandInvalid("goal east"));
     }
 
     @Test
-    public void testForPhraseWithGo() {
-        Assert.assertEquals(true, Adventure.isCommandInvalid("I want to go east"));
+    public void testForPhraseWithGo() throws Exception {
+        Assert.assertTrue(Adventure.isCommandInvalid("I want to go east"));
     }
 
     @Test
-    public void testForInputLessThanThreeCharacters() {
-        Assert.assertEquals(true, Adventure.isCommandLessThanThreeCharacters("g"));
+    public void testForInputLessThanThreeCharacters() throws Exception {
+        Assert.assertTrue(Adventure.isCommandLessThanThreeCharacters("g"));
     }
+
+    @Test
+    public void testIfUserPassedPuzzle() throws IOException {
+        mapper = new ObjectMapper().readValue(new File("src/main/resources/gameExtension.json"),
+                Layout.class);
+        Adventure.mapRoomToAnswer(mapper);
+        Assert.assertTrue(Adventure.passedPuzzle("illini", mapper.getRooms().get(0)));
+    }
+
+    @Test
+    public void testIfUserFailedPuzzle() throws IOException {
+        mapper = new ObjectMapper().readValue(new File("src/main/resources/gameExtension.json"),
+                Layout.class);
+        Adventure.mapRoomToAnswer(mapper);
+        Assert.assertFalse(Adventure.passedPuzzle("blah", mapper.getRooms().get(0)));
+    }
+
 }
