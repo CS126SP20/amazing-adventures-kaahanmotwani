@@ -1,8 +1,5 @@
 package student.adventure;
 
-//import sun.security.util.Length;
-
-import java.io.ByteArrayOutputStream;
 import java.util.*;
 
 public class Adventure {
@@ -20,7 +17,7 @@ public class Adventure {
     /**
      * The time, in seconds, the user has to play
      */
-    private static final int TIME_TO_PLAY = 60;
+    private static final int TIME_TO_PLAY = 120;
 
     /**
      * A map of the rooms to Strings of the answers to the respective questions asked for the rooms
@@ -41,8 +38,8 @@ public class Adventure {
         boolean isGameOver = (currentRoomStr.equals(gameLayout.getEndingRoom()));
         long startTime = System.nanoTime();
         mapRoomToAnswer(gameLayout);
-        System.out.println("Instructions for commands: \nType in 'go (valid direction)' " +
-                "and answer the puzzle to go somewhere" +
+        System.out.println("Instructions for commands: You must answer the puzzle to use any of the following commands!" +
+                " \nType in 'go (valid direction)' to go somewhere" +
                 "\nType in 'add (item)' and answer the puzzle to add an item to the room" +
                 "\nType in 'remove (item)' to remove an item from" +
                 " the room \nType in 'examine' to see the room's description and items available\n");
@@ -54,7 +51,7 @@ public class Adventure {
             String userAnswer = consoleInput.nextLine();
             long currentTime = System.nanoTime();
             long timeElapsed = (currentTime - startTime)/NANOSECONDS_TO_SECONDS;
-            //if one minute has elapsed, then the game is over! (One of my extensions)
+            //if two minutes has elapsed, then the game is over! (One of my extensions)
             //Code from: https://stackoverflow.com/questions/180158/how-do-i-time-a-methods-execution-in-java
             if (timeElapsed > TIME_TO_PLAY) {
                 System.out.println("Time is up!");
@@ -62,7 +59,7 @@ public class Adventure {
             }
 
             if (passedPuzzle(userAnswer, currentRoom)) {
-                System.out.println("correct! Choose where you want to go.");
+                System.out.println("correct! Choose where you want to go or if you want to add/remove anything.");
                 userAnswer = consoleInput.nextLine();
                 if (isCommandLessThanThreeCharacters(userAnswer)) {
                     System.out.println("I don't understand '" + userAnswer + "'");
@@ -91,6 +88,8 @@ public class Adventure {
                         System.out.println("I can't " + userAnswer);
                     }
                 }
+            } else {
+                System.out.println("Wrong! Try again.");
             }
 
 
